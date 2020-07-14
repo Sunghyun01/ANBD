@@ -33,19 +33,19 @@
         </nav>
         @yield('content')
         <div style="position:fixed;bottom:0;background:#fff;width:100%;height:50px">
-            <div style="width:20%; text-align:center;line-height:50px;float:left" onclick="location.href='/home'">
+            <div style="width:25%; text-align:center;line-height:50px;float:left" onclick="location.href='/home'">
                 <i class="fa fa-home"></i>
             </div>
-            <div style="width:20%; text-align:center;line-height:50px;float:left" onclick="location.href='/category'">
+            <!-- <div style="width:20%; text-align:center;line-height:50px;float:left" onclick="location.href='/category'">
                 <i class="fa fa-bars"></i>
-            </div>
-            <div style="width:20%; text-align:center;line-height:50px;float:left" onclick="location.href='/search'">
+            </div> -->
+            <div style="width:25%; text-align:center;line-height:50px;float:left" onclick="location.href='/search'">
                 <i class="fa fa-search"></i>
             </div>
-            <div style="width:20%; text-align:center;line-height:50px;float:left" onclick="location.href='/message'">
+            <div style="width:25%; text-align:center;line-height:50px;float:left" onclick="location.href='/message'">
                 <i class="fa fa-comment"></i>
             </div>
-            <div style="width:20%; text-align:center;line-height:50px;float:left" onclick="location.href='/setting'">
+            <div style="width:25%; text-align:center;line-height:50px;float:left" onclick="location.href='/setting'">
                 <i class="fa fa-cogs"></i>
             </div>
         </div>
