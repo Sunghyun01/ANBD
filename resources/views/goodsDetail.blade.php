@@ -34,20 +34,22 @@
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <h5>댓글 {{ count($comment)??'0' }}개</h5>
+                <h5>댓글 <span class="commentCount">{{ count($comment)??'0' }}</span>개</h5>
             </div>
-            @isset($comment)
-                @foreach($comment as $value)
-                    <div class="col-xs-12">
+            <div class="col-xs-12 commentBox">
+                @isset($comment)
+                    @foreach($comment as $value)
                         <div class="col-xs-12">
-                            <span>{{ $value['writer'] }}</span>
+                            <div class="col-xs-12">
+                                <span>{{ $value['writer'] }}</span>
+                            </div>
+                            <div class="col-xs-12">
+                                <p>{{$value['comment']}}</p>
+                            </div>
                         </div>
-                        <div class="col-xs-12">
-                            <p>{{$value['comment']}}</p>
-                        </div>
-                    </div>
-                @endforeach
-            @endisset
+                    @endforeach
+                @endisset
+            </div>
             <div class="col-xs-9">
                 <textarea name="name" class="form-control commentVal" placeholder="댓글입력..."></textarea>
             </div>
@@ -69,7 +71,18 @@
                     comment : $('.commentVal').val()
                 },
 			}).done(function(data){
-
+                $('.commentBox').append(`
+                    <div class="col-xs-12">
+                        <div class="col-xs-12">
+                            <span>${data['writer']}</span>
+                        </div>
+                        <div class="col-xs-12">
+                            <p>${$('.commentVal').val()}</p>
+                        </div>
+                    </div>
+                `);
+                $('.commentCount').text($('.commentCount').text()*1+1);
+                $('.commentVal').val('');
             })
         })
     })

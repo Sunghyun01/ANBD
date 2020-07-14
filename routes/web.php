@@ -14,10 +14,15 @@ Route::get('/', 'TaskController@userList');
 Route::get('register', function () {
     return view('register');
 });
-Route::view('login','login')->middleware('guest');
-Route::get('/logout','Auth\LoginController@logout');
-Route::post('login', 'Auth\LoginController@login');
-Route::post('register', 'Auth\RegisterController@register');
+//로그인 관련
+Route::view('login','login');
+Route::post('login', 'Login@login');
+Route::post('logout','Login@logout');
+Route::post('register', 'Login@register');
+
+Route::get('/chat', 'ChatsController@index');
+Route::get('messages', 'ChatsController@fetchMessages');
+Route::post('messages', 'ChatsController@sendMessage');
 
 //하단메뉴 러유투
 Route::get('home','HomeController@index');

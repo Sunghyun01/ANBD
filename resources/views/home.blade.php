@@ -30,11 +30,23 @@
             <div class="col-xs-12">
                 최근 등록된 책들
             </div>
-            @foreach($data as $value)
-            <div class="col-xs-6">
-                <h4>{{ $value['goods_name'] }}</h4>
-                <p>위치</p>
-                <button type="button" class="btn btn-info btn-xs">#1gd</button>
+            @foreach($data as $val)
+            <div class="col-xs-6" onclick="location.href='/goodsdetail/{{$val['idx']}}'">
+                <h4>{{ $val['goods_name'] }}</h4>
+                <? $exp = explode(',',$val['place']);?>
+                @isset($exp)
+                    <p>
+                        @for($i=0; $i < count($exp); $i++)
+                            <i class="fa fa-map-marker"></i> {{ $exp[$i] }}
+                        @endfor
+                    </p>
+                @endisset
+                <? $exp = explode(',',$val['hash']);?>
+                @isset($exp)
+                    @for($i=0; $i < count($exp); $i++)
+                        <button class="btn btn-xs">{{ $exp[$i] }}</button>
+                    @endfor
+                @endisset
             </div>
             @endforeach
         </div>

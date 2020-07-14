@@ -13,6 +13,7 @@
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="{{ secure_asset('/css/app.css') }}" rel="stylesheet">
+        <script type="module" src="{{ secure_asset('/js/app.js') }}"></script>
         @yield('style')
         <script>
             $.ajaxSetup({

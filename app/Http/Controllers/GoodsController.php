@@ -22,7 +22,7 @@ class GoodsController extends Controller
     {
         $goods = Goods::findOrFail($idx);
         $comment =Comment::where('pidx',$idx)->get();
-        
+
         return view('goodsDetail', ['data'=>$goods,'comment'=>$comment]);
     }
     function goodsInsertView()
@@ -76,6 +76,6 @@ class GoodsController extends Controller
             'comment' => $request->comment,
             'reg_time' => now()->timestamp
         ]);
-        return response()->json(['status'=>true]);
+        return response()->json(['status'=>true,'writer'=>$writer]);
     }
 }

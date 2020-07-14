@@ -9,7 +9,7 @@
         </div>
         <div class="row">
         @foreach($data as $val)
-        <div class="col-xs-6">
+        <div class="col-xs-6" onclick="location.href='/goodsdetail/{{$val['idx']}}'">
             <h4>{{ $val['goods_name'] }}</h4>
             <? $exp = explode(',',$val['place']);?>
             @isset($exp)
