@@ -1,0 +1,19 @@
+*{margin: 0; padding: 0}
+.p-0{
+    padding: 0 !important;
+}
+.bg-white{
+    background: #fff !important;
+}
+.mt-1{
+    margin-top: 1rem !important;
+}
+.mt-3{
+    margin-top: 3rem !important;
+}
+.f-r{
+    float: right !important;
+}
+.b-0{
+    border:0 !important;
+}
