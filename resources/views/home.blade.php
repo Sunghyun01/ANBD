@@ -11,16 +11,16 @@
 @section('content')
     <div class="jumbotron">
         <div class="container">
-            <h1>Hello, world!</h1>
+            <h1>AㅏNㅏBㅏDㅏ</h1>
             @if(isset($_COOKIE['user_idx']))
-            <p>등록유도</p>
+            <p>책을 등록해주세요!</p>
             <p>
                 <button type="button" name="button" class="btn btn-primary" onclick="location.href='/goodsinsert'">등록하기 »</button>
             </p>
             @else
-            <p>가입유도</p>
+            <p>회원가입하고 책을 받아봐요!</p>
             <p>
-                <button type="button" name="button" class="btn btn-primary" onclick="location.href='/login'">가입하기 »</button>
+                <button type="button" name="button" class="btn btn-primary" onclick="location.href='/login'">로그인 »</button>
             </p>
             @endif
         </div>

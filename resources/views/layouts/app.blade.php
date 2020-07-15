@@ -27,7 +27,7 @@
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/home">Project name</a>
+                    <a class="navbar-brand" href="/home">AㅏNㅏBㅏDㅏ</a>
                 </div>
             </div>
         </nav>

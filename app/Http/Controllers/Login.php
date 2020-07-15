@@ -27,7 +27,8 @@ class Login extends Controller
         User::create([
             'id' => $request->id,
             'password' => $request->password,
-            'name' => $request->name
+            'name' => $request->name,
+            'reg_time' => now()->timestamp
         ]);
         return response()->json(['status'=>true,'msg'=>'가입되었습니다']);
     }

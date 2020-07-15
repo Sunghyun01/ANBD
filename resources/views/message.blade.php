@@ -1,66 +1,31 @@
 @extends('layouts.app')
 
-@section('style')
-<style>
-  .chat {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .chat li {
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    border-bottom: 1px dotted #B3A9A9;
-  }
-
-  .chat li .chat-body p {
-    margin: 0;
-    color: #777777;
-  }
-
-  .panel-body {
-    overflow-y: scroll;
-    height: 350px;
-  }
-
-  ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    background-color: #F5F5F5;
-  }
-
-  ::-webkit-scrollbar {
-    width: 12px;
-    background-color: #F5F5F5;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-    background-color: #555;
-  }
-</style>
-@endsection
 @section('content')
     <div class="container" style="padding-top:50px">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Chats</div>
-
-                    <div class="panel-body">
-                        <chat-messages :messages="messages"></chat-messages>
-                    </div>
-                    <div class="panel-footer">
-                        <chat-form
-                            v-on:messagesent="addMessage"
-                            :user="{{ $data??'' }}"
-                        ></chat-form>
-                    </div>
+            <div class="col-xs-12" style="border-bottom: 1px solid black;">
+                <h5>메시지함</h5>
+            </div>
+            @if(isset($data))
+                @foreach ($data as $key => $value)
+                <div class="col-xs-12" onclick="location.href='/messagedetail/{{$value[0]['post_id']}}'">
+                    <h5>{{ $key }}</h5>
+                    <p>{{ $value[0]['message'] }}</p>
+                </div>
+                @endforeach
+            @else
+            <div class="col-12">
+                <div class="col-xs-12 mb-3">
+                    <h4 class="text-center">로그인 후 이용할수있습니다</h4>
+                </div>
+                <div class="col-xs-6" onclick="location.href='/login'">
+                    <p class="text-center border border-successr">로그인</p>
+                </div>
+                <div class="col-xs-6" onclick="location.href='/register'">
+                    <p class="text-center border border-success">회원가입</p>
                 </div>
             </div>
+            @endif
         </div>
     </div>
-@endsection
-
-@section('script')
 @endsection

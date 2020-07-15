@@ -7,10 +7,13 @@ use App\User;
 
 class SettingController extends Controller
 {
-    function editView()
+    function editView(Request $request)
     {
-        $user = User::select('idx','id','password','name')->where('idx',1)->first();
-
-        return view('userEdit', ['data'=>$user]);
+        if(isset($_COOKIE['user_idx'])){
+            $user = User::select('idx','id','password','name')->where('idx',$_COOKIE['user_idx'])->first();
+            return view('userEdit', ['data'=>$user]);
+        }else{
+            return view('userEdit');
+        }
     }
 }
