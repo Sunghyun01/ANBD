@@ -10,6 +10,6 @@ class Goods extends Model
     protected $primaryKey = 'idx';
     public $timestamps = false;
 
-    protected $fillable = ['idx','pidx','goods_name','comment','writer','hash','place','reg_time'];
+    protected $fillable = ['idx','pidx','goods_name','comment','img','writer','hash','place','reg_time'];
 
 }

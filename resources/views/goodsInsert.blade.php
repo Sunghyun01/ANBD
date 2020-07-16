@@ -3,11 +3,15 @@
 @section('content')
     <div class="container" style="padding-top:70px">
         <div class="row">
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="col-xs-12">
                     <span>제목</span>
                     <input type="text" name="goods_name" class="form-control input-sm">
+                </div>
+                <div class="col-xs-12">
+                    <span>첨부파일</span>
+                    <input type="file" name="goods_photo">
                 </div>
                 <div class="col-xs-12">
                     <span>태그</span>

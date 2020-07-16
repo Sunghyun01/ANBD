@@ -4,12 +4,12 @@
     <div class="container" style="padding-top:50px">
         <div class="row">
             <div class="col-xs-12" style="border-bottom: 1px solid black;">
-                <h5>메시지함</h5>
+                <h4>메시지함</h4>
             </div>
             @if(isset($data))
                 @foreach ($data as $key => $value)
-                <div class="col-xs-12" onclick="location.href='/messagedetail/{{$value[0]['post_id']}}'">
-                    <h5>{{ $key }}</h5>
+                <div class="col-xs-12" onclick="location.href='/messagedetail/{{$value[0]['post_id']}}'" style="border-bottom: 1px solid #d2d2d7; padding-top: 20px;">
+                    <h4>{{ $key }}</h4>
                     <p>{{ $value[0]['message'] }}</p>
                 </div>
                 @endforeach

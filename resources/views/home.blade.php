@@ -27,28 +27,47 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-xs-12">
-                최근 등록된 책들
+            <div class="col-xs-12" style="border-bottom: 1px solid #d2d2d7;">
+                <h4>최근 등록된 책들</h4>
             </div>
             @foreach($data as $val)
-            <div class="col-xs-6" onclick="location.href='/goodsdetail/{{$val['idx']}}'">
-                <h4>{{ $val['goods_name'] }}</h4>
-                <? $exp = explode(',',$val['place']);?>
-                @isset($exp)
-                    <p>
-                        @for($i=0; $i < count($exp); $i++)
-                            <i class="fa fa-map-marker"></i> {{ $exp[$i] }}
-                        @endfor
-                    </p>
-                @endisset
-                <? $exp = explode(',',$val['hash']);?>
-                @isset($exp)
-                    @for($i=0; $i < count($exp); $i++)
-                        <button class="btn btn-xs">{{ $exp[$i] }}</button>
-                    @endfor
-                @endisset
+            <?$noImg = isset($val['img']) && $val['img'] != '';?>
+            <div class="col-xs-12" onclick="location.href='/goodsdetail/{{$val['idx']}}'" style="border-bottom: 1px solid #d2d2d7; padding-top: 20px;">
+                <div class="col-xs-12 p-0">
+                    <div class="col-xs-12 p-0">
+                        <span style="color:#86868b">{{ date('Y년 m월 d일',$val['reg_time']) }}</span>
+                    </div>
+                    @if($noImg)
+                    <div class="col-xs-2 p-0 imgBox">
+                            <img src="{{ $val['img'] }}" style="width:120%;height:100%;" class="rounded">
+                    </div>
+                    @endif
+                    <div class="{{$noImg ? 'col-xs-9' : 'col-xs-12' }} p-0 f-r">
+                        <h3 style="margin:0">{{ $val['goods_name'] }}</h3>
+                        <p style="margin: 0 0 20px;">
+                        <? $exp = explode(',',$val['place']);?>
+                        @isset($exp)
+                                @for($i=0; $i < count($exp); $i++)
+                                    <i class="fa fa-map-marker"></i> {{ $exp[$i] }}
+                                @endfor
+                        @endisset
+                        <? $exp = explode(',',$val['hash']);?>
+                        @isset($exp)
+                            @for($i=0; $i < count($exp); $i++)
+                                <button class="btn btn-xs">{{ $exp[$i] }}</button>
+                            @endfor
+                        @endisset
+                        </p>
+                    </div>
+                </div>
             </div>
             @endforeach
         </div>
+
     </div>
+@endsection
+@section('script')
+    <script>
+        $('.imgBox').height($('.imgBox').parents('.col-xs-12').children('.col-xs-9').height()-20+'px');
+    </script>
 @endsection

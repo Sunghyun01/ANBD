@@ -22,11 +22,11 @@ Route::post('register', 'Login@register');
 
 
 //하단메뉴 러유투
-Route::get('home','HomeController@index');
+Route::get('home','HomeController@index')->name('home');
 Route::view('category','category');
 Route::view('search','search');
 Route::get('message', 'MessageController@getMessage');
-Route::view('setting','setting');
+Route::get('setting','SettingController@index');
 
 //상품 라우트
 Route::get('goods','GoodsController@goodsList')->name('goodsList');

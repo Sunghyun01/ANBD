@@ -1,5 +1,19 @@
 @extends('layouts.app')
 
+@section('style')
+    <style>
+        .get{
+            border-radius: 10px;
+            padding-left: 15px;
+            background: #e8e8e8;
+        }
+        .post{
+            border-radius: 10px;
+            padding-right: 15px;
+            background: #fbfbe3;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="container" style="padding-top:50px">
         <div class="row">
@@ -11,7 +25,7 @@
                     <div class="col-xs-12 ">
                         <div class="{{ $pid == $value['post_id'] ? 'text-left' : 'text-right' }}">
                             <p>{{ $pid == $value['post_id'] ? $postName : $getName }}</p>
-                            <p>{{ $value['message'] }}</p>
+                            <p class="{{ $pid == $value['post_id'] ? 'get' : 'post' }}">{{ $value['message'] }}</p>
                         </div>
                     </div>
                 @endforeach

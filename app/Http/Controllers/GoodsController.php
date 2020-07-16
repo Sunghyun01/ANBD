@@ -10,11 +10,14 @@ class GoodsController extends Controller
 {
     function goodsList(Request $request)
     {
-        $goodsData = Goods::select('idx','goods_name','place','hash','reg_time');
+        $goodsData = Goods::select('idx','goods_name','place','img','hash','reg_time');
         if($request->has('q')){
             $goodsData->where('goods_name', 'like', '%' . $request->q . '%');
         }
-        $goodsData = $goodsData->get();
+        if($request->has('u')){
+            $goodsData->where('writer', 'like', '%' . $request->u . '%');
+        }
+        $goodsData = $goodsData->orderBy('reg_time','desc')->get();
 
         return view('goodslist', ['data'=>$goodsData]);
     }
@@ -56,16 +59,25 @@ class GoodsController extends Controller
         }else{
             $place = implode(',',$place);
         }
+        $name = '';
+
+        if($request->hasFile('goods_photo')){
+            $image = $request->file('goods_photo');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/images');
+            $image->move($destinationPath, $name);
+        }
         Goods::create([
             'goods_name' => $request->goods_name,
             'comment' => $request->comment,
+            'img' => '/images/'.$name,
             'writer' => $writer,
             'hash' => $hash,
             'place' => $place,
             'reg_time' => now()->timestamp
         ]);
 
-        return redirect()->route('goodsList');
+        return redirect()->route('home');
     }
     function comment(Request $request, $idx)
     {

@@ -2,29 +2,26 @@
 
 @section('content')
     <div class="container" style="padding-top:50px">
-        @if(isset($_COOKIE['user_idx']))
+        @if(isset($data))
         <div class="row">
-            <div class="col-xs-3">
-                <i class="fa fa-user"></i>
+            <div class="col-xs-2 text-center">
+                <i class="fa fa-user" style="font-size:30px"></i>
             </div>
-            <div class="col-xs-9">
+            <div class="col-xs-10">
                 <div class="col-xs-12">
-                    userName
-                </div>
-                <div class="col-xs-12">
-                    asdf
+                    {{ $data['name'] }}
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-12" onclick="location.href='/goodsinsert'">
-                상품 등록하기
+            <div class="col-xs-12" onclick="location.href='/goodsinsert'" style="border-bottom: 1px solid #d2d2d7;box-sizing:border-box;">
+                <p><i class="fa fa-plus"></i> 상품 등록하기</p>
             </div>
-            <div class="col-12">
-                등록된상품 보기
+            <div class="col-xs-12" style="border-bottom: 1px solid #d2d2d7;box-sizing:border-box;" onclick="location.href='/goods?u={{$data['name']}}'">
+                <p><i class="fa fa-eye"></i> 등록된상품 보기</p>
             </div>
-            <div class="col-12 logout">
-                <p>로그아웃</p>
+            <div class="col-xs-12 logout" style="border-bottom: 1px solid #d2d2d7;box-sizing:border-box;">
+                <p><i class="fa fa-sign-out"></i> 로그아웃</p>
             </div>
         </div>
         @else

@@ -4,11 +4,14 @@
     <div class="container" style="padding-top:50px">
         <div class="row">
             <div class="col-xs-12">
-                {{ $data['goods_name'] }}
+                <h2>{{ $data['goods_name'] }}</h2>
+            </div>
+            <div class="col-xs-12 mb-2">
+                <img src="{{ $data['img'] }}" class="w-100" style="width:100%">
             </div>
             <div class="col-xs-6 p-0">
                 <div class="col-xs-12">
-                    해시태그
+                    <i class="fa fa-hashtag"></i> 해시태그
                 </div>
                 <div class="col-xs-12">
                     <? $exp = explode(',',$data['hash']);?>
@@ -19,7 +22,7 @@
             </div>
             <div class="col-xs-6 p-0">
                 <div class="col-xs-12 ">
-                    거래장소
+                    <i class="fa fa-map-marker"></i> 거래장소
                 </div>
                 <div class="col-xs-12">
                     <? $exp = explode(',',$data['place']);?>
@@ -28,8 +31,8 @@
                     @endfor
                 </div>
             </div>
-            <div class="col-xs-12 mt-3">
-                <textarea class="form-control bg-white b-0" readonly>{{$data['comment']}}</textarea>
+            <div class="col-xs-12 mt-2">
+                <p readonly>{{$data['comment']}}</p>
             </div>
         </div>
         <div class="row">
@@ -50,11 +53,13 @@
                     @endforeach
                 @endisset
             </div>
-            <div class="col-xs-9">
-                <textarea name="name" class="form-control commentVal" placeholder="댓글입력..."></textarea>
-            </div>
-            <div class="col-xs-3">
-                <input type="button" value="댓글" class="btn btn-primary comment">
+            <div class="col-xs-12">
+                <div class="col-xs-10 p-0">
+                    <input class="form-control commentVal" placeholder="댓글입력...">
+                </div>
+                <div class="col-xs-2 p-0">
+                    <input type="button" value="댓글" class="btn btn-primary comment w-100">
+                </div>
             </div>
         </div>
     </div>

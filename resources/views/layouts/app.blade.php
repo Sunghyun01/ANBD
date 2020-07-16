@@ -10,7 +10,6 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="{{ secure_asset('/css/app.css') }}" rel="stylesheet">
         <script type="module" src="{{ secure_asset('/js/app.js') }}"></script>
@@ -32,23 +31,29 @@
             </div>
         </nav>
         @yield('content')
-        <div style="position:fixed;bottom:0;background:#fff;width:100%;height:50px">
-            <div style="width:25%; text-align:center;line-height:50px;float:left" onclick="location.href='/home'">
+        <div style="margin-bottom:50px"></div>
+        <div style="position:fixed;bottom:0;background:#fff;width:100%;height:50px;box-shadow: 0 -2px 2px -2px #333;" class="tabMenu">
+            <div style="width:25%; text-align:center;line-height:50px;float:left;box-sizing: border-box;" onclick="location.href='/home'" class="home">
                 <i class="fa fa-home"></i>
             </div>
-            <!-- <div style="width:20%; text-align:center;line-height:50px;float:left" onclick="location.href='/category'">
-                <i class="fa fa-bars"></i>
-            </div> -->
-            <div style="width:25%; text-align:center;line-height:50px;float:left" onclick="location.href='/search'">
+            <div style="width:25%; text-align:center;line-height:50px;float:left;box-sizing: border-box;" onclick="location.href='/search'" class="category">
                 <i class="fa fa-search"></i>
             </div>
-            <div style="width:25%; text-align:center;line-height:50px;float:left" onclick="location.href='/message'">
+            <div style="width:25%; text-align:center;line-height:50px;float:left;box-sizing: border-box;" onclick="location.href='/message'" class="message">
                 <i class="fa fa-comment"></i>
             </div>
-            <div style="width:25%; text-align:center;line-height:50px;float:left" onclick="location.href='/setting'">
+            <div style="width:25%; text-align:center;line-height:50px;float:left;box-sizing: border-box;" onclick="location.href='/setting'" class="setting">
                 <i class="fa fa-cogs"></i>
             </div>
         </div>
     </body>
+    <script type="text/javascript">
+        var menu = localStorage.getItem('menu') ? localStorage.getItem('menu') : localStorage.setItem('menu', 'home');
+        $(`.${menu}`).css({'border-bottom':'2px solid violet','line-height':'48px'})
+
+        $('.tabMenu>div').click(function(){
+            localStorage.setItem('menu', $(this).attr('class'));
+        })
+    </script>
     @yield('script')
 </html>
