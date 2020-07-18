@@ -10,12 +10,22 @@ class GoodsController extends Controller
 {
     function goodsList(Request $request)
     {
-        $goodsData = Goods::select('idx','goods_name','place','img','hash','reg_time');
+        $goodsData = Goods::select('idx','goods_name','comment','img','writer','hash','place',
+        'department','grade','gubun','day','start_time','end_time','reg_time');
         if($request->has('q')){
             $goodsData->where('goods_name', 'like', '%' . $request->q . '%');
         }
         if($request->has('u')){
             $goodsData->where('writer', 'like', '%' . $request->u . '%');
+        }
+        if($request->has('department')){
+            $goodsData->where('department',$request->department);
+        }
+        if($request->has('grade')){
+            $goodsData->where('grade',$request->grade);
+        }
+        if($request->has('gubun')){
+            $goodsData->where('gubun',$request->gubun);
         }
         $goodsData = $goodsData->orderBy('reg_time','desc')->get();
 
@@ -24,7 +34,24 @@ class GoodsController extends Controller
     function getSingleData(Request $request, $idx)
     {
         $goods = Goods::findOrFail($idx);
-        $comment =Comment::where('pidx',$idx)->get();
+            $comment =Comment::where('pidx',$idx)->get();
+
+            if(isset($goods->gubun) && $goods->gubun != ''){
+                $goods->gubun = Goods::$gubun[$goods->gubun];
+            }
+            if(isset($goods->department) && $goods->department != ''){
+                $goods->department = Goods::$department[$goods->department];
+            }
+
+            if(isset($goods->day) && $goods->day!= ''){
+                $exp = explode('|',$goods->day);
+                $day = '';
+                for($i=0; $i<count($exp); $i++){
+                    $day .= Goods::$day[$exp[$i]].' ';
+                }
+                $goods->day = trim($day);
+            }
+
 
         return view('goodsDetail', ['data'=>$goods,'comment'=>$comment]);
     }
@@ -61,19 +88,26 @@ class GoodsController extends Controller
         }
         $name = '';
 
+        $day = implode('|',$request->day);
+
         if($request->hasFile('goods_photo')){
             $image = $request->file('goods_photo');
             $name = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/images');
             $image->move($destinationPath, $name);
+            $name = '/images/'.$name;
         }
         Goods::create([
             'goods_name' => $request->goods_name,
             'comment' => $request->comment,
-            'img' => '/images/'.$name,
+            'img' => $name,
             'writer' => $writer,
-            'hash' => $hash,
-            'place' => $place,
+            'gubun' => $request->gubun,
+            'department' => $request->department,
+            'grade'=>$request->grade,
+            'day' => $day,
+            'start_time'=>$request->start_time,
+            'end_time'=>$request->end_time,
             'reg_time' => now()->timestamp
         ]);
 

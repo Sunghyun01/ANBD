@@ -11,13 +11,12 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 Route::get('/', 'TaskController@userList');
-Route::get('register', function () {
-    return view('register');
-});
+
 //로그인 관련
 Route::view('login','login');
 Route::post('login', 'Login@login');
 Route::post('logout','Login@logout');
+Route::view('register','register');
 Route::post('register', 'Login@register');
 
 

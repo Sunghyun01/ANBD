@@ -26,10 +26,13 @@
                     <input class="form-control" placeholder="비밀번호" name="password" type="password"  required>
                 </div>
                 <div class="form-group">
+                    <input class="form-control" placeholder="비밀번호 확인" name="password" type="password"  required>
+                </div>
+                <div class="form-group">
                     <input class="form-control" placeholder="이름" name="name" type="text"  required>
                 </div>
                 <div class="col-12">
-                    <input type="button" value="회원가입" class="btn btn-lg btn-success btn-block login"/>
+                    <input type="button" value="회원가입" class="btn btn-lg btn-block login" style="background: #B5B2FF;border: 0;"/>
                 </div>
             </div>
         </div>

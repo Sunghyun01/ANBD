@@ -1,5 +1,14 @@
 @extends('layouts.app')
-
+<?
+$department = [
+    '국어국문학과','영어영문학과','중어중문학과','프랑스언어문화학과','일본학과','법학과','행정학과','경제학과'
+    ,'경영학과','무역학과','미디어영상학과','관광학과','사회복지학과','농학과','생활과학부','컴퓨터과학과','정보통계학과'
+    ,'보건환경학과','간호학과','교육학과','청소년교육과','유아교육과','문화교양학과'
+];
+$gubun = [
+    '전공','교양','일반'
+];
+?>
 @section('style')
 <style>
     .jumbotron{
@@ -13,7 +22,7 @@
         <div class="container">
             <h1>AㅏNㅏBㅏDㅏ</h1>
             @if(isset($_COOKIE['user_idx']))
-            <p>책을 등록해주세요!</p>
+            <p onclick="getLocation()">책을 등록해주세요!</p>
             <p>
                 <button type="button" name="button" class="btn btn-primary" onclick="location.href='/goodsinsert'">등록하기 »</button>
             </p>
@@ -39,24 +48,35 @@
                     </div>
                     @if($noImg)
                     <div class="col-xs-2 p-0 imgBox">
-                            <img src="{{ $val['img'] }}" style="width:120%;height:100%;" class="rounded">
+                        <img src="{{ $val['img'] }}" style="width:120%;height:100%;" class="rounded">
                     </div>
                     @endif
                     <div class="{{$noImg ? 'col-xs-9' : 'col-xs-12' }} p-0 f-r">
                         <h3 style="margin:0">{{ $val['goods_name'] }}</h3>
+                        <p>
+                            @if(isset($val['department']) && $val['department'] != '')
+                                [{{$department[$val['department']]}}]
+                            @endif
+                            @if(isset($val['gubun']) && $val['gubun'] != '')
+                                [{{$gubun[$val['gubun']]}}]
+                            @endif
+                            @if(isset($val['grade']) && $val['grade'] != '')
+                                [{{$val['grade']}} 학년]
+                            @endif
+                        </p>
                         <p style="margin: 0 0 20px;">
+                        @if(isset($val['place']) && $val['place'] != '')
                         <? $exp = explode(',',$val['place']);?>
-                        @isset($exp)
                                 @for($i=0; $i < count($exp); $i++)
                                     <i class="fa fa-map-marker"></i> {{ $exp[$i] }}
                                 @endfor
-                        @endisset
+                        @endif
+                        @if(isset($val['hash']) && $val['hash'] != '')
                         <? $exp = explode(',',$val['hash']);?>
-                        @isset($exp)
                             @for($i=0; $i < count($exp); $i++)
                                 <button class="btn btn-xs">{{ $exp[$i] }}</button>
                             @endfor
-                        @endisset
+                        @endif
                         </p>
                     </div>
                 </div>

@@ -26,7 +26,7 @@
                     <input class="form-control" placeholder="비밀번호" name="password" type="password"  required>
                 </div>
                 <div class="col-12">
-                    <input type="button" value="로그인" class="btn btn-lg btn-success btn-block login"/>
+                    <input type="button" value="로그인" class="btn btn-lg btn-block login" style="background:#B5B2FF"/>
                 </div>
                 <div class="col-12 text-center">
                     <a href="/register">회원가입</a>
