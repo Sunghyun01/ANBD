@@ -20,7 +20,7 @@
             <div class="col-xs-12" style="border-bottom: 1px solid #d2d2d7;box-sizing:border-box;" onclick="location.href='/goods?u={{$data['name']}}'">
                 <p><i class="fa fa-eye"></i> 등록된상품 보기</p>
             </div>
-            <div class="col-xs-12 logout" style="border-bottom: 1px solid #d2d2d7;box-sizing:border-box;">
+            <div class="col-xs-12" style="border-bottom: 1px solid #d2d2d7;box-sizing:border-box;" onclick="logout()">
                 <p><i class="fa fa-sign-out"></i> 로그아웃</p>
             </div>
         </div>
@@ -42,19 +42,4 @@
     </div>
 @endsection
 @section('script')
-<script>
-    $('.logout').click(function(){
-        $.ajax({
-            method	: 'POST',
-            url		: '/logout',
-        }).done(function(data){
-            if(data['status']){
-                alert('로그아웃되었습니다');
-                location.reload();
-            }else{
-                alert('Error');
-            }
-        })
-    })
-</script>
 @endsection

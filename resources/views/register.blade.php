@@ -19,21 +19,25 @@
                 <h4>회원가입</h4>
             </div>
             <div class="col-xs-12">
-                <div class="form-group">
-                    <input class="form-control" placeholder="아이디" name="id" type="text"  required>
-                </div>
-                <div class="form-group">
-                    <input class="form-control" placeholder="비밀번호" name="password" type="password"  required>
-                </div>
-                <div class="form-group">
-                    <input class="form-control" placeholder="비밀번호 확인" name="password" type="password"  required>
-                </div>
-                <div class="form-group">
-                    <input class="form-control" placeholder="이름" name="name" type="text"  required>
-                </div>
-                <div class="col-12">
-                    <input type="button" value="회원가입" class="btn btn-lg btn-block login" style="background: #B5B2FF;border: 0;"/>
-                </div>
+                <form action="/register" method="post" onsubmit="return chk()">
+                    @csrf
+                    <div class="form-group">
+                        <input class="form-control" placeholder="아이디" name="id" type="text"  required>
+                        <input type="button" value="중복체크" class="btn btn-xs btn-primary btn-rounded id_chk">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="비밀번호" name="password" type="password"  required>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="비밀번호 확인" name="passwordChk" type="password"  required>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="이름" name="name" type="text"  required>
+                    </div>
+                    <div class="col-12">
+                        <input type="button" value="회원가입" class="btn btn-lg btn-block login" style="background: #B5B2FF;border: 0;"/>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -42,23 +46,33 @@
 
 @section('script')
     <script>
-        $('.login').click(function(){
+        var idChk = false;
+        $('.id_chk').click(function(){
             $.ajax({
                 method	: 'POST',
-                url		: '/register',
-                data	:  {
-                    id : $('[name="id"]').val(),
-                    password : $('[name="password"]').val(),
-                    name : $('[name="name"]').val(),
+                url		: '/idchk',
+                data : {
+                    id : $("[name='id']").val()
                 },
             }).done(function(data){
                 if(data['status']){
-                    alert('가입되었습니다');
-                    location.href="/login";
-                }else{
-                    alert(data['msg']);
+                    idChk = true;
+                    $("[name='id']").attr('readonly','readonly');
                 }
+                alert(data['msg'])
             })
         })
+        function chk(){
+            if($("[name='password']").val() != $("[name='password']").val()){
+                alert('비밀번호 확인이 올바르지 않습니다');
+                return false;
+            }else if (idChk) {
+                alert('아이디체크를 진행해주세요');
+                return false;
+            }else{
+                alert('가입되었습니다');
+                return true;
+            }
+        }
     </script>
 @endsection

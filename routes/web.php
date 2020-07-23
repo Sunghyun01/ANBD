@@ -18,7 +18,7 @@ Route::post('login', 'Login@login');
 Route::post('logout','Login@logout');
 Route::view('register','register');
 Route::post('register', 'Login@register');
-
+Route::post('idchk','Login@idChk');
 
 //하단메뉴 러유투
 Route::get('home','HomeController@index')->name('home');

@@ -39,7 +39,7 @@ $gubun = [
                     <?}?>
                 </ul>
             </div>
-            <div class="col-xs-12 gubun-menu">
+            <div class="col-xs-12 gubun-menu d-none">
                 <ul>
                     <?for($i=0; $i<count($gubun); $i++){?>
                         <li style="height:30px" gubun='{{ $i }}'>{{ $gubun[$i] }}</li>

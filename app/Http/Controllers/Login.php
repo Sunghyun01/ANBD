@@ -32,4 +32,13 @@ class Login extends Controller
         ]);
         return response()->json(['status'=>true,'msg'=>'가입되었습니다']);
     }
+    public function idChk(Request $request)
+    {
+        $cnt = User::where('id',$request->id)->count();
+        if($cnt > 0){
+            return response()->json(['status'=>false,'msg'=>'이미 있는 아이디입니다']);
+        }else{
+            return response()->json(['status'=>true,'msg'=>'사용하실 수 있는 아이디입니다']);
+        }
+    }
 }

@@ -21,13 +21,17 @@ $gubun = [
     <div class="jumbotron">
         <div class="container">
             <h1>AㅏNㅏBㅏDㅏ</h1>
+            <p onclick="getLocation()" style="font-size:11px">
+                <배움을 나눌수록 더 큰 행복이 됩니다></br>
+                한국방송통신대학교 교재 무료 나눔 시스템 아나바다입니다.</br>
+                '배움을 재 활용하여 다수가 배울수 있게하다' 가 저희의 이념입니다.</br>
+                따뜻한 나눔으로 우리 학우들의 배움을 응원해주세요.
+            </p>
             @if(isset($_COOKIE['user_idx']))
-            <p onclick="getLocation()">책을 등록해주세요!</p>
             <p>
                 <button type="button" name="button" class="btn btn-primary" onclick="location.href='/goodsinsert'">등록하기 »</button>
             </p>
             @else
-            <p>회원가입하고 책을 받아봐요!</p>
             <p>
                 <button type="button" name="button" class="btn btn-primary" onclick="location.href='/login'">로그인 »</button>
             </p>
