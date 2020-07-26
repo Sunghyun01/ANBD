@@ -41,3 +41,23 @@
 .d-none{
     display: none;
 }
+.logo{
+    width:4%
+}
+.mainImg{
+    height: 450px;
+}
+@media ( max-width: 1024px ) {
+    .logo{
+        width:4%
+    }
+}
+
+@media ( max-width: 768px ) {
+    .logo{
+        width:27%
+    }
+    .mainImg{
+        height:150px
+    }
+}

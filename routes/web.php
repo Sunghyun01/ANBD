@@ -15,7 +15,7 @@ Route::get('/', 'TaskController@userList');
 //로그인 관련
 Route::view('login','login');
 Route::post('login', 'Login@login');
-Route::post('logout','Login@logout');
+Route::get('logout','Login@logout');
 Route::view('register','register');
 Route::post('register', 'Login@register');
 Route::post('idchk','Login@idChk');

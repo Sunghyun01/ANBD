@@ -18,7 +18,7 @@
             <div class="col-xs-12 text-center">
                 <h4>로그인</h4>
             </div>
-            <div class="col-xs-12">
+            <div class="col-12">
                 <div class="form-group">
                     <input class="form-control" placeholder="아이디" name="id" type="text"  required>
                 </div>
@@ -39,6 +39,7 @@
 
 @section('script')
     <script>
+        $('.navpusher').css('height','0');
         $('.login').click(function(){
             $.ajax({
                 method	: 'POST',
@@ -51,7 +52,7 @@
                 if(data['status']){
                     location.href="/home";
                 }else{
-                    alert(data['msg']);
+                    Command: toastr["error"](data['msg'])
                 }
             })
         })

@@ -20,7 +20,7 @@ class Login extends Controller
     public function logout()
     {
         setcookie("user_idx", "", time() - 3600);
-        return response()->json(['status'=>true,'msg'=>'로그아웃되었습니다']);
+        return redirect()->route('home');
     }
     public function register(Request $request)
     {

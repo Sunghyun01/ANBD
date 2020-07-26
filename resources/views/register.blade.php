@@ -15,10 +15,10 @@
 <div class="jumbotron vertical-center bg-white">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 text-center">
+            <div class="col-12 text-center">
                 <h4>회원가입</h4>
             </div>
-            <div class="col-xs-12">
+            <div class="col-12">
                 <form action="/register" method="post" onsubmit="return chk()">
                     @csrf
                     <div class="form-group">
@@ -46,22 +46,9 @@
 
 @section('script')
     <script>
+        $('.navpusher').css('height','0');
         var idChk = false;
-        $('.id_chk').click(function(){
-            $.ajax({
-                method	: 'POST',
-                url		: '/idchk',
-                data : {
-                    id : $("[name='id']").val()
-                },
-            }).done(function(data){
-                if(data['status']){
-                    idChk = true;
-                    $("[name='id']").attr('readonly','readonly');
-                }
-                alert(data['msg'])
-            })
-        })
+
         function chk(){
             if($("[name='password']").val() != $("[name='password']").val()){
                 alert('비밀번호 확인이 올바르지 않습니다');
@@ -74,5 +61,24 @@
                 return true;
             }
         }
+        $(document).ready(function () {
+            $('.id_chk').click(function(){
+                $.ajax({
+                    method	: 'POST',
+                    url		: '/idchk',
+                    data : {
+                        id : $("[name='id']").val()
+                    }
+                }).done(function(data){
+                    if(data['status']){
+                        idChk = true;
+                        $("[name='id']").attr('readonly','readonly');
+                        Command: toastr["success"](data['msg'])
+                    }else{
+                        Command: toastr["error"](data['msg'])
+                    }
+                })
+            })
+        })
     </script>
 @endsection

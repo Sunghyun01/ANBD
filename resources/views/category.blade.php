@@ -20,12 +20,12 @@ $gubun = [
 </style>
 @endsection
 @section('content')
-    <div class="container" style="padding-top:50px">
+    <div class="container">
         <div class="row">
-            <div class="col-xs-12 text-right tab">
+            <div class="col-12 text-right tab">
                 <span tab="department" style="color:blue">학과별</span> / <span tab="gubun">구분별</span>
             </div>
-            <div class="col-xs-12 department-menu">
+            <div class="col-12 department-menu">
                 <ul>
                     <?for($i=0; $i<count($department); $i++){?>
                     <li style="height:30px" >{{ $department[$i] }}</li>
@@ -39,7 +39,7 @@ $gubun = [
                     <?}?>
                 </ul>
             </div>
-            <div class="col-xs-12 gubun-menu d-none">
+            <div class="col-xs-12 gubun-menu">
                 <ul>
                     <?for($i=0; $i<count($gubun); $i++){?>
                         <li style="height:30px" gubun='{{ $i }}'>{{ $gubun[$i] }}</li>
@@ -53,6 +53,7 @@ $gubun = [
 @section('script')
 <script>
     $(document).ready(function(){
+        $('.gubun-menu').hide();
         $('.tab span').click(function(){
             $('.gubun-menu,.department-menu').hide();
             $('.tab span').css('color','black');
