@@ -11,7 +11,7 @@ class GoodsController extends Controller
     function goodsList(Request $request)
     {
         $goodsData = Goods::select('idx','goods_name','comment','img','writer','hash','place',
-        'department','grade','gubun','day','start_time','end_time','reg_time');
+        'department','grade','gubun','day','post_type','start_time','end_time','reg_time');
         if($request->has('q')){
             $goodsData->where('goods_name', 'like', '%' . $request->q . '%');
         }
@@ -27,6 +27,12 @@ class GoodsController extends Controller
         if($request->has('gubun')){
             $goodsData->where('gubun',$request->gubun);
         }
+        if($request->has('post_type')){
+            $goodsData->whereIn('post_type',[$request->post_type,2]);
+        }
+        if($request->has('grade')){
+            $goodsData->where('grade',$request->grade);
+        }
         $goodsData = $goodsData->orderBy('reg_time','desc')->get();
 
         return view('goodslist', ['data'=>$goodsData]);
@@ -34,26 +40,26 @@ class GoodsController extends Controller
     function getSingleData(Request $request, $idx)
     {
         $goods = Goods::findOrFail($idx);
-            $comment =Comment::where('pidx',$idx)->get();
+        $comment =Comment::where('pidx',$idx)->get();
 
-            if(isset($goods->gubun) && $goods->gubun != ''){
-                $goods->gubun = Goods::$gubun[$goods->gubun];
+        if(isset($goods->gubun) && $goods->gubun != ''){
+            $goods->gubun = Goods::$gubun[$goods->gubun];
+        }
+        if(isset($goods->department) && $goods->department != ''){
+            $goods->department = Goods::$department[$goods->department];
+        }
+
+        if(isset($goods->day) && $goods->day!= ''){
+            $exp = explode('|',$goods->day);
+            $day = '';
+            for($i=0; $i<count($exp); $i++){
+                $day .= Goods::$day[$exp[$i]].' ';
             }
-            if(isset($goods->department) && $goods->department != ''){
-                $goods->department = Goods::$department[$goods->department];
-            }
-
-            if(isset($goods->day) && $goods->day!= ''){
-                $exp = explode('|',$goods->day);
-                $day = '';
-                for($i=0; $i<count($exp); $i++){
-                    $day .= Goods::$day[$exp[$i]].' ';
-                }
-                $goods->day = trim($day);
-            }
+            $goods->day = trim($day);
+        }
 
 
-        return view('goodsDetail', ['data'=>$goods,'comment'=>$comment]);
+        return view('goodsDetail', ['data'=>$goods,'comment'=>$comment,'user']);
     }
     function goodsInsertView()
     {
@@ -65,7 +71,7 @@ class GoodsController extends Controller
     }
     function goodsInsert(Request $request)
     {
-        $writer = User::findOrFail($_COOKIE['user_idx'])->name;
+        $writer = User::findOrFail($_COOKIE['user_idx'])->id;
 
         $hash = preg_replace("/\s+/", "", $request->hash);
         $place = preg_replace("/\s+/", "", $request->place);
@@ -89,6 +95,13 @@ class GoodsController extends Controller
         $name = '';
 
         $day = implode('|',$request->day);
+        if(count($request->post_type) == 2){
+            $post_type = 2;
+        }elseif (count($request->post_type) == 1) {
+            $post_type = $request->post_type[0];
+        }else {
+            $post_type = 3;
+        }
 
         if($request->hasFile('goods_photo')){
             $image = $request->file('goods_photo');
@@ -103,8 +116,10 @@ class GoodsController extends Controller
             'img' => $name,
             'writer' => $writer,
             'gubun' => $request->gubun,
+            'post_type' => $post_type,
             'department' => $request->department,
             'grade'=>$request->grade,
+            'place'=>$place,
             'day' => $day,
             'start_time'=>$request->start_time,
             'end_time'=>$request->end_time,

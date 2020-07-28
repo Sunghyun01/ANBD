@@ -12,21 +12,21 @@ $gubun = [
 @section('content')
         <div class="row">
             <div class="col-12 p-0">
-                <img src="./images/main.jpg" alt="" style="width:100%;" class="mainImg">
+                <img src="{{ secure_asset('/images/main.jpg') }}" alt="소개" style="width:100%;" class="mainImg">
             </div>
         </div>
         <div class="row">
-            <div class="col-6 mt-2">
-                <img src="./images/1594886762.png" alt="" style="width:100%">
+            <div class="col-md-6 col-12 mt-2" style="cursor:pointer">
+                <img src="{{ secure_asset('/images/dash_1.jpg') }}" alt="학과별" style="width:100%" onclick="location.href='/category?tab=department'">
             </div>
-            <div class="col-6 mt-2">
-                <img src="./images/1594886762.png" alt="" style="width:100%">
+            <div class="col-md-6 col-12 mt-2" style="cursor:pointer">
+                <img src="{{ secure_asset('/images/dash_2.jpg') }}" alt="" style="width:100%" onclick="location.href='/category?tab=grade'">
             </div>
-            <div class="col-6 mt-2">
-                <img src="./images/1594886762.png" alt="" style="width:100%">
+            <div class="col-md-6 col-12 mt-2" style="cursor:pointer">
+                <img src="{{ secure_asset('/images/dash_3.jpg') }}" alt="" style="width:100%" onclick="location.href='/goods?post_type=0'">
             </div>
-            <div class="col-6 mt-2">
-                <img src="./images/1594886762.png" alt="" style="width:100%">
+            <div class="col-md-6 col-12 mt-2" style="cursor:pointer">
+                <img src="{{ secure_asset('/images/dash_4.jpg') }}" alt="" style="width:100%" onclick="location.href='/goods?post_type=1'">
             </div>
         </div>
 @endsection

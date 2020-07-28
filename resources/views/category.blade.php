@@ -13,9 +13,14 @@ $gubun = [
 <style>
     ul,li{
         list-style: none;
+        cursor: pointer;
     }
     ul>li>ul>li{
+        cursor: pointer;
         padding-left: 20px;
+    }
+    .tab span{
+        cursor: pointer;
     }
 </style>
 @endsection
@@ -23,13 +28,13 @@ $gubun = [
     <div class="container">
         <div class="row">
             <div class="col-12 text-right tab">
-                <span tab="department" style="color:blue">학과별</span> / <span tab="gubun">구분별</span>
+                <span tab="department" style="color:blue">학과별</span> / <span tab="gubun">구분별</span> / <span tab="grade">학년별</span>
             </div>
             <div class="col-12 department-menu">
                 <ul>
                     <?for($i=0; $i<count($department); $i++){?>
                     <li style="height:30px" >{{ $department[$i] }}</li>
-                    <li class="d-none" menu="{{$i}}">
+                    <li class="dis-none" menu="{{$i}}">
                         <ul>
                             <?for($j=1; $j<5; $j++){?>
                             <li grade="{{$j}}">ㄴ {{ $j }}학년</li>
@@ -39,10 +44,17 @@ $gubun = [
                     <?}?>
                 </ul>
             </div>
-            <div class="col-xs-12 gubun-menu">
+            <div class="col-12 gubun-menu">
                 <ul>
                     <?for($i=0; $i<count($gubun); $i++){?>
                         <li style="height:30px" gubun='{{ $i }}'>{{ $gubun[$i] }}</li>
+                    <?}?>
+                </ul>
+            </div>
+            <div class="col-12 grade-menu">
+                <ul>
+                    <?for($i=1; $i<5; $i++){?>
+                        <li style="height:30px" grade='{{ $i }}'>{{ $i }}학년</li>
                     <?}?>
                 </ul>
             </div>
@@ -53,9 +65,8 @@ $gubun = [
 @section('script')
 <script>
     $(document).ready(function(){
-        $('.gubun-menu').hide();
         $('.tab span').click(function(){
-            $('.gubun-menu,.department-menu').hide();
+            $('.gubun-menu,.department-menu, .grade-menu').hide();
             $('.tab span').css('color','black');
 
             var menu = '.'+$(this).attr('tab')+'-menu';
@@ -63,7 +74,7 @@ $gubun = [
             $(menu).show();
         })
         $('ul>li>ul>li').click(function(){
-            var menu = $(this).parents('.d-none').attr('menu');
+            var menu = $(this).parents('.dis-none').attr('menu');
             var grade = $(this).attr('grade');
 
             location.href="/goods?department="+menu+'&grade='+grade;
@@ -71,10 +82,24 @@ $gubun = [
         $('.gubun-menu li').click(function(){
             location.href = '/goods?gubun='+$(this).attr('gubun');
         })
-        $('.department-menu>ul>li').click(function(){
-            $('.d-none').hide();
-            $('.col-xs-12>ul>li').eq($(this).index()+1).show();
+        $('.grade-menu li').click(function(){
+            location.href = '/goods?grade='+$(this).attr('grade');
         })
+        $('.department-menu>ul>li').click(function(){
+            $('.dis-none').hide();
+            console.log($(this).index()+1);
+            $('.department-menu>ul>li').eq($(this).index()+1).show();
+        })
+        @if(isset(request()->tab) && request()->tab != '')
+            $('.grade-menu, .gubun-menu, .department-menu').hide();
+            var tab = '{{ request()->tab }}';
+            $('.tab span').css('color','black');
+
+            $(`[tab="${tab}"]`).trigger('click')
+            $(`[tab="${tab}"]`).css('color','blue');
+        @else
+            $('.gubun-menu,.grade-menu').hide();
+        @endif
     })
 </script>
 @endsection

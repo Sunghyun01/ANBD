@@ -14,26 +14,26 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12" onclick="location.href='/goodsinsert'" style="border-bottom: 1px solid #d2d2d7;box-sizing:border-box;">
+            <div class="col-12" onclick="location.href='/goodsinsert'" style="border-bottom: 1px solid #d2d2d7;box-sizing:border-box;cursor:pointer">
                 <p><i class="fa fa-plus"></i> 상품 등록하기</p>
             </div>
-            <div class="col-xs-12" style="border-bottom: 1px solid #d2d2d7;box-sizing:border-box;" onclick="location.href='/goods?u={{$data['name']}}'">
+            <div class="col-12" style="border-bottom: 1px solid #d2d2d7;box-sizing:border-box;cursor:pointer" onclick="location.href='/goods?u={{$data['id']}}'">
                 <p><i class="fa fa-eye"></i> 등록된상품 보기</p>
             </div>
-            <div class="col-xs-12" style="border-bottom: 1px solid #d2d2d7;box-sizing:border-box;" onclick="logout()">
+            <div class="col-12" style="border-bottom: 1px solid #d2d2d7;box-sizing:border-box;cursor:pointer" onclick="logout()">
                 <p><i class="fa fa-sign-out"></i> 로그아웃</p>
             </div>
         </div>
         @else
         <div class="row">
             <div class="col-12">
-                <div class="col-xs-12 mb-3">
+                <div class="col-12 mb-3">
                     <h4 class="text-center">로그인 후 이용할수있습니다</h4>
                 </div>
-                <div class="col-xs-6" onclick="location.href='/login'">
+                <div class="col-6" onclick="location.href='/login'">
                     <p class="text-center border border-successr">로그인</p>
                 </div>
-                <div class="col-xs-6" onclick="location.href='/register'">
+                <div class="col-6" onclick="location.href='/register'">
                     <p class="text-center border border-success">회원가입</p>
                 </div>
             </div>

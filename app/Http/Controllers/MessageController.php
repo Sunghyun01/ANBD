@@ -13,7 +13,14 @@ class MessageController extends Controller
             $user =  User::select('idx','id','password','name')->where('idx',$_COOKIE['user_idx'])->first();
             $msg = Message::select('idx','post_id','get_id','message','reg_time')->where('get_id',$user->id)->get();
             $msg = $msg->groupBy('post_id');
-            return view('message',['data'=>$msg]);
+
+            $up = Message::where('get_id',$user->id)->where('see','1')->get();
+            $val = '';
+            foreach ($up as $value) {
+                $val .= $value->post_id.',';
+            }
+            $val = substr($val, 0, -1);
+            return view('message',['data'=>$msg,'no'=>$up = $val]);
         }else{
             return view('message');
         }
@@ -22,6 +29,8 @@ class MessageController extends Controller
     {
         $user =  User::select('idx','id','password','name')->where('idx',$_COOKIE['user_idx'])->first();
         $postName = User::select('idx','id','password','name')->where('id',$send)->first();
+
+        $up = Message::where('get_id',$user->id)->where('post_id',$send)->where('see','1')->update(['see'=>'0']);
 
         $msg = Message::select('idx','post_id','get_id','message','reg_time')
         ->whereIn('post_id',[$send,$user->id])
@@ -41,5 +50,15 @@ class MessageController extends Controller
         ]);
 
         return response()->json(['status'=>true]);
+    }
+    function chkMsg(){
+        $user =  User::select('idx','id','password','name')->where('idx',$_COOKIE['user_idx'])->first();
+        $msg = Message::where('see','1')->where('get_id',$user->id)->orderBy('reg_time','desc')->count();
+
+        if($msg > 0){
+            return response()->json(['status'=>true,'msg'=>$msg]);
+        }else{
+            return response()->json(['status'=>false]);
+        }
     }
 }

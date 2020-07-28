@@ -51,13 +51,13 @@
 
         function chk(){
             if($("[name='password']").val() != $("[name='password']").val()){
-                alert('비밀번호 확인이 올바르지 않습니다');
+                Command: toastr["error"]('비밀번호 확인이 올바르지 않습니다')
                 return false;
             }else if (idChk) {
-                alert('아이디체크를 진행해주세요');
+                Command: toastr["error"]('아이디체크를 진행해주세요')
                 return false;
             }else{
-                alert('가입되었습니다');
+                Command: toastr["success"]('가입되었습니다')
                 return true;
             }
         }

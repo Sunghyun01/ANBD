@@ -10,5 +10,5 @@ class Message extends Model
     protected $primaryKey = 'idx';
     public $timestamps = false;//
 
-    protected $fillable = ['idx','post_id','get_id','message','reg_time'];
+    protected $fillable = ['idx','post_id','get_id','message','see','reg_time'];
 }

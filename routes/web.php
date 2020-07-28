@@ -37,6 +37,6 @@ Route::post('goodsdetail/{idx}/comment','GoodsController@Comment');
 //메시지 라우트
 Route::post('msg','MessageController@send');
 Route::get('messagedetail/{send}','MessageController@messageDetail');
-
+Route::post('/chkMsg','MessageController@chkMsg');
 //세팅 라우트
 Route::get('useredit','SettingController@editView');

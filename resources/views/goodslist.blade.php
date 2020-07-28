@@ -9,8 +9,16 @@ $gubun = [
     '전공','교양','일반'
 ];
 ?>
+@section('style')
+<style media="screen">
+    .imgBox img{
+        width: 180px;
+        height: 180px;
+    }
+</style>
+@endsection
 @section('content')
-    <div class="container" style="padding-top:50px">
+    <div class="container">
         <div class="row">
             <div class="col-12">
                 검색결과 {{ count($data)??'' }}건
@@ -19,17 +27,21 @@ $gubun = [
         <div class="row">
             @foreach($data as $val)
             <?$noImg = isset($val['img']) && $val['img'] != '';?>
-            <div class="col-xs-12" onclick="location.href='/goodsdetail/{{$val['idx']}}'" style="border-bottom: 1px solid #d2d2d7; padding-top: 20px;">
-                <div class="col-xs-12 p-0">
-                    <div class="col-xs-12 p-0">
+            <div class="col-12" onclick="location.href='/goodsdetail/{{$val['idx']}}'" style="border-bottom: 1px solid #d2d2d7; padding-top: 20px;">
+                <div class="col-12 p-0">
+                    <div class="col-12 p-0">
                         <span style="color:#86868b">{{ date('Y년 m월 d일',$val['reg_time']) }}</span>
                     </div>
-                    @if($noImg)
-                    <div class="col-xs-2 p-0 imgBox">
-                        <img src="{{ $val['img'] }}" style="width:120%;height:100%;" class="rounded">
+
+                    <div class="col-2 p-0 imgBox float-left">
+                        @if($noImg)
+                        <img src="{{$val['img']}}" style="width:100%;height:100%;" class="rounded">
+                        @else
+                        <img src="{{ asset('/images/default.png' )}}" style="width:100%;height:100%;" class="rounded">
+                        @endif
                     </div>
-                    @endif
-                    <div class="{{$noImg ? 'col-xs-9' : 'col-xs-12' }} p-0 f-r">
+
+                    <div class="col-9 p-0 float-left">
                         <h3 style="margin:0">{{ $val['goods_name'] }}</h3>
                         <p>
                             @if(isset($val['department']) && $val['department'] != '')
@@ -42,6 +54,15 @@ $gubun = [
                                 [{{$val['grade']}} 학년]
                             @endif
                         </p>
+                        <p>
+                            @if($val['post_type'] == 0)
+                                택배거래
+                            @elseif($val['post_type'] == 1)
+                                직거래
+                            @else
+                                택배거래 & 직거래
+                            @endif
+                        </p>
                         <p style="margin: 0 0 20px;">
                         @if(isset($val['place']) && $val['place'] != '')
                         <? $exp = explode(',',$val['place']);?>
@@ -52,7 +73,7 @@ $gubun = [
                         @if(isset($val['hash']) && $val['hash'] != '')
                         <? $exp = explode(',',$val['hash']);?>
                             @for($i=0; $i < count($exp); $i++)
-                                <button class="btn btn-xs">{{ $exp[$i] }}</button>
+                                <button class="btn btn">{{ $exp[$i] }}</button>
                             @endfor
                         @endif
                         </p>

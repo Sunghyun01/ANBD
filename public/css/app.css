@@ -38,21 +38,40 @@
 .w-100{
     width:100% !important;
 }
-.d-none{
+.dis-none{
     display: none;
 }
 .logo{
-    width:4%
+    width:13%
 }
 .mainImg{
     height: 450px;
 }
+.bg-yellow{
+    background: #f8f9d9;
+}
+.footer{
+    right: 0;
+    left: 0;
+    z-index: 10;
+    background-color: #343a40!important;
+    color: #bcbfc1;
+    padding: 0;
+    bottom: 0;
+}
 @media ( max-width: 1024px ) {
     .logo{
-        width:4%
+        width:13%
     }
 }
-
+@media ( max-width: 992px ) {
+    .logo{
+        width:13%
+    }
+    .mainImg{
+        height:240px
+    }
+}
 @media ( max-width: 768px ) {
     .logo{
         width:27%

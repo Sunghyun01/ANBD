@@ -31,29 +31,33 @@
         </script>
     </head>
     <body>
-        <div class="container p-0">
+        <div class="container p-0 bb">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
                 <div class="container">
                     <a class="navbar-brand logo-font logo" href="#">
-                        <img src="./images/logo.png" alt="" style="width:100%">
+                        <img src="{{ secure_asset('/images/logo.png') }}" alt="" style="width:100%">
                     </a>
                     <button class="navbar-toggler order-first" type="button" data-toggle="collapse" data-target="#links" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fa fa-bars"></i>
+                        <span class="messageCnt"></span>
                     </button>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#account" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fa fa-user"></i>
                     </button>
 
                     <div class="collapse navbar-collapse" id="links">
-                        <ul class="navbar-nav mr-auto">
+                        <ul class="navbar-nav mr-auto menu">
                             <li class="nav-item active">
-                                <a class="nav-link" href="#">Home</a>
+                                <a class="nav-link" href="/home">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Category</a>
+                                <a class="nav-link" href="/goods">All</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Setting</a>
+                                <a class="nav-link" href="/category">Category</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/message">Message <i class="fa fa-bell" style="color: white;"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -162,17 +166,20 @@
                   </div>
                 </div>
             </div>
-            <div class="row no-gutters">
-                <div class="col-12 text-center m-0">
-                    <h3>Hanwoori ⓒ</h3>
-                </div>
+        </div>
+        <div class="row footer">
+            <div class="col-12 text-center m-0">
+                <h4>Hanwoori ⓒ</h4>
             </div>
-            </div>
+        </div>
     </body>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script type="text/javascript">
-        $('.navpusher').css('height',$('.navbar').outerHeight()+'px');
+        $('.navpusher').css('height',$('.navbar').outerHeight()+25+'px');
+        $(window).resize(function(){
+            $('.navpusher').css('height',$('.navbar').outerHeight()+25+'px');
+        })
         $('.open_menu').click(function(){
             if ($('.popup').css('display') == 'block') {
                 $('.open_menu > i').removeClass('fa fa-times');
@@ -220,27 +227,6 @@
         $('.submit').click(function(){
             location.href = '/goods?q='+$('.inp').val();
         })
-        $('.tab span').click(function(){
-            $('.gubun-menu,.department-menu').hide();
-            $('.tab span').css('color','black');
-
-            var menu = '.'+$(this).attr('tab')+'-menu';
-            $(this).css('color','blue')
-            $(menu).show();
-        })
-        $('ul>li>ul>li').click(function(){
-            var menu = $(this).parents('.d-none').attr('menu');
-            var grade = $(this).attr('grade');
-
-            location.href="/goods?department="+menu+'&grade='+grade;
-        })
-        $('.gubun-menu li').click(function(){
-            location.href = '/goods?gubun='+$(this).attr('gubun');
-        })
-        $('.department-menu>ul>li').click(function(){
-            $('.d-none').hide();
-            $('.col-xs-12>ul>li').eq($(this).index()+1).show();
-        })
         toastr.options = {
             "closeButton": false,
             "debug": false,
@@ -258,6 +244,25 @@
             "showMethod": "fadeIn",
             "hideMethod": "fadeOut"
         }
+        $('.bb').css('min-height',$(window).height()-$('.footer').height()+'px');
+        @if(isset($_COOKIE['user_idx']) && $_COOKIE['user_idx'] != '')
+        $.ajax({
+            method	: 'POST',
+            url		: '/chkMsg',
+        }).done(function(data){
+            if(data['status']){
+                $('.messageCnt').text(data['msg']);
+                setInterval(function() {
+                    $('.fa-bell').css('color','white');
+                    setTimeout(function() {
+                        $('.fa-bell').css('color','red');
+                    }, 1000);
+                }, 3000);
+            }else{
+
+            }
+        },10000)
+        @endif
     </script>
     @yield('script')
 </html>

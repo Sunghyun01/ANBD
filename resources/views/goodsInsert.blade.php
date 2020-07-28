@@ -16,109 +16,143 @@ $day=[
 ];
 ?>
 @section('content')
-    <div class="container" style="padding-top:70px">
+    <div class="container">
         <div class="row">
-            <form method="post" enctype="multipart/form-data">
-                @csrf
-                <div class="col-xs-12">
-                    <span>제목</span>
-                    <input type="text" name="goods_name" class="form-control input-sm">
-                </div>
-                <div class="col-xs-12">
-                    <span>학과</span>
-                    <select class="form-control" name="department">
-                        <option value="">학과를 선택해주세요</option>
-                        <?for($i=0; $i<count($department); $i++){?>
-                            <option value="{{$i}}">{{ $department[$i] }}</option>
-                        <?}?>
-                    </select>
-                </div>
-                <div class="col-xs-6">
-                    <span>구분</span>
-                    <select class="form-control" name="gubun">
-                        <option value="">구분을 선택해주세요</option>
-                        <option value="0">전공</option>
-                        <option value="1">교양</option>
-                        <option value="2">일반</option>
-                    </select>
-                </div>
-                <div class="col-xs-6">
-                    <span>학년</span>
-                    <select class="form-control" name="grade">
-                        <option value="">학년을 선택해주세요</option>
-                        <option value="1">1학년</option>
-                        <option value="2">2학년</option>
-                        <option value="3">3학년</option>
-                        <option value="4">4학년</option>
-                    </select>
-                </div>
-                <div class="col-xs-12">
-                    <span>거래 선호요일</span>
-                    <div class="col-xs-12 p-0">
-                        @foreach ($day as $key => $value)
+            <div class="col-12">
+                <form method="post" enctype="multipart/form-data" onsubmit="return chk()">
+                    @csrf
+                    <div class="col-12 float-left">
+                        <span>제목</span>
+                        <input type="text" name="goods_name" class="form-control input-sm" required>
+                    </div>
+                    <div class="col-12 float-left">
+                        <span>학과</span>
+                        <select class="form-control" name="department" required>
+                            <option value="">학과를 선택해주세요</option>
+                            <?for($i=0; $i<count($department); $i++){?>
+                                <option value="{{$i}}">{{ $department[$i] }}</option>
+                            <?}?>
+                        </select>
+                    </div>
+                    <div class="col-6 float-left">
+                        <span>구분</span>
+                        <select class="form-control" name="gubun" required>
+                            <option value="">구분을 선택해주세요</option>
+                            <option value="0">전공</option>
+                            <option value="1">교양</option>
+                            <option value="2">일반</option>
+                        </select>
+                    </div>
+                    <div class="col-6 float-left">
+                        <span>학년</span>
+                        <select class="form-control" name="grade" required>
+                            <option value="">학년을 선택해주세요</option>
+                            <option value="1">1학년</option>
+                            <option value="2">2학년</option>
+                            <option value="3">3학년</option>
+                            <option value="4">4학년</option>
+                        </select>
+                    </div>
+                    <div class="col-12 float-left">
+                        <span>거래 선호요일</span>
+                        <div class="col-12 p-0">
+                            @foreach ($day as $key => $value)
+                                <div class="form-check float-left">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" value="{{$key}}" name="day[]">
+                                        <span>{{ $value }}</span>
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="col-12 float-left">
+                        <div class="col-12 p-0">
+                            <span>거래 선호시간</span>
+                        </div>
+                        <div class="col-5 float-left">
+                            <select class="form-control" name="start_time" required>
+                                <option value="0">상관없음</option>
+                                @for($i=1; $i<25; $i++)
+                                <option value="{{$i}}">{{$i}}시</option>
+                                @endfor
+                            </select>
+                        </div>
+                        <div class="col-2 text-center float-left">
+                            <span> ~ </span>
+                        </div>
+                        <div class="col-5 float-left">
+                            <select class="form-control" name="end_time" required>
+                                <option value="0">상관없음</option>
+                                @for($i=1; $i<25; $i++)
+                                <option value="{{$i}}">{{$i}}시</option>
+                                @endfor
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 float-left">
+                        <div class="col-12">
+                            <span>거래방식</span>
+                        </div>
+                        <div class="form-check float-left" style="margin-left:1rem">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" value="{{$key}}" name="day[]">{{ $value }}
+                                <input type="checkbox" class="form-check-input" value="0" name="post_type[]">
+                                <span>택배거래</span>
                             </label>
-                        @endforeach
+                        </div>
+                        <div class="form-check float-left" style="margin-left:1rem">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="1" name="post_type[]">
+                                <span>직거래</span>
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <div class="col-xs-12">
-                    <div class="col-xs-12 p-0">
-                        <span>거래 선호시간</span>
+                    <!-- <div class="col-12">
+                        <span>태그</span>
+                        <input type="text" name="hash" placeholder=", 를 사용하여 최대 3개를 저장할수있습니다" class="form-control input-sm">
+                    </div> -->
+                    <div class="col-12 float-left">
+                        <span>장소</span>
+                        <input type="text" name="place" placeholder=", 를 사용하여 최대 3개를 저장할수있습니다" class="form-control input-sm" required>
                     </div>
-                    <div class="col-xs-5">
-                        <select class="form-control" name="start_time">
-                            <option value="0">상관없음</option>
-                            @for($i=1; $i<25; $i++)
-                            <option value="{{$i}}">{{$i}}시</option>
-                            @endfor
-                        </select>
+                    <div class="col-12  float-left">
+                        <div class="col-12">
+                            <span>추가설명</span>
+                        </div>
+                        <div class="col-12 p-0">
+                            <textarea name="comment" class="form-control" rows="7" required></textarea>
+                        </div>
                     </div>
-                    <div class="col-xs-2 text-center">
-                        <span> ~ </span>
+                    <div class="col-12  float-left">
+                        <span>첨부파일</span>
+                        <input type="file" name="goods_photo">
                     </div>
-                    <div class="col-xs-5">
-                        <select class="form-control" name="end_time">
-                            <option value="0">상관없음</option>
-                            @for($i=1; $i<25; $i++)
-                            <option value="{{$i}}">{{$i}}시</option>
-                            @endfor
-                        </select>
+                    <div class="col-12 mt-3  float-left">
+                        <div class="f-r">
+                            <input type="submit" value="등록하기" class="btn btn-primary">
+                            <input type="button" value="취소" onclick="history.back()" class="btn btn-secondery">
+                        </div>
                     </div>
-                </div>
-                <!-- <div class="col-xs-12">
-                    <span>태그</span>
-                    <input type="text" name="hash" placeholder=", 를 사용하여 최대 3개를 저장할수있습니다" class="form-control input-sm">
-                </div>
-                <div class="col-xs-12">
-                    <span>장소</span>
-                    <input type="text" name="place" placeholder=", 를 사용하여 최대 3개를 저장할수있습니다" class="form-control input-sm">
-                </div> -->
-                <div class="col-xs-12">
-                    <div class="col-12">
-                        <span>추가설명</span>
-                    </div>
-                    <div class="col-12">
-                        <textarea name="comment" class="form-control" rows="7"></textarea>
-                    </div>
-                </div>
-                <div class="col-xs-12">
-                    <span>첨부파일</span>
-                    <input type="file" name="goods_photo">
-                </div>
-                <div class="col-xs-12 mt-3">
-                    <div class="f-r">
-                        <input type="submit" value="등록하기" class="btn btn-primary">
-                        <input type="button" value="취소" onclick="history.back()" class="btn btn-secondery">
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 @endsection
 
 @section('script')
 <script>
+    function chk(){
+        if(!$('[name="post_type[]"]:checked').val()){
+            Command: toastr["error"]('거래방식을 선택해주세요.');
+            return false;
+        }
+        if(!$('[name="day[]"]:checked').val()){
+            Command: toastr["error"]('거래요일을 선택해주세요.');
+            return false;
+        }
+        Command: toastr["success"]('등록완료')
+        return true;
+    }
     $(document).ready(function(){
 
     })
