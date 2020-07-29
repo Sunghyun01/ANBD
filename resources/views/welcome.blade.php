@@ -62,17 +62,7 @@
     <body>
 		<div id="example"></div>
         <div class="">
-            @if (Auth::id())
-            	<div class="">
-                	<a href="{{ url('/logout') }}">logout</a>
-				</div>
-			@else
-				<div>
-					<a href="{{ url('/login') }}">login</a>
-	                <a href="{{ url('/register') }}">Register</a>
-	            </div>
-            @endif
-
+            <input type="button" name="" value="permission" onclick="per()">
             <div class="content">
                 <div class="title m-b-md">
                     Laravel
@@ -93,4 +83,18 @@
             </div>
         </div>
     </body>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
+
+    <script>
+    function per(){
+        Notification.requestPermission().then(function(permission) {
+            if (permission === 'granted') {
+                new Notification("Hi there!");
+            } else {
+                console.log('Unable to get permission to notify.');
+            }
+        });
+    }
+    </script>
 </html>

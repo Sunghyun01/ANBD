@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>Home</title>
+        <title>KNOU - 아나바다</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" type="text/javascript"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -83,41 +83,7 @@
             </nav>
 
             <div class="navpusher"></div>
-            <!-- <nav class="navbar navbar-inverse navbar-fixed-top">
-                <div class="container">
-                    <div class="navbar-header">
-                        <div class="col-xs-12 p-0">
-                            <div class="col-md-3 col-xs-3  p-0 open_menu text-center" style="float:left">
-                              <i class="fa fa-bars" style="color:white;font-size:30px;text-align:right;padding:10px"></i>
-                            </div>
-                            <div class="col-md-6 col-xs-6 p-0 text-center">
-                              <img src="https://jsh2.innoi.kr/images/logo.png" alt="" height="50" onclick="location.href='/home'">
-                            </div>
-                            <div class="col-md-3 col-xs-3  p-0 text-center" style="float:left" onclick="location.href='/message'">
-                              <i class="fa fa-comment" style="color:white;font-size:30px;text-align:right;padding:10px"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav> -->
             @yield('content')
-            <!-- <div style="position:fixed;bottom:0;background:#fff;width:100%;height:50px;box-shadow: 0 -2px 2px -2px #333;" class="tabMenu">
-                <div style="width:20%; text-align:center;line-height:50px;float:left;box-sizing: border-box;" onclick="location.href='/home'" class="home">
-                    <i class="fa fa-home"></i>
-                </div>
-                <div style="width:20%; text-align:center;line-height:50px;float:left;box-sizing: border-box;" onclick="location.href='/category'" class="category">
-                    <i class="fa fa-bars"></i>
-                </div>
-                <div style="width:20%; text-align:center;line-height:50px;float:left;box-sizing: border-box;" onclick="location.href='/search'" class="search">
-                    <i class="fa fa-search"></i>
-                </div>
-                <div style="width:20%; text-align:center;line-height:50px;float:left;box-sizing: border-box;" onclick="location.href='/message'" class="message">
-                    <i class="fa fa-comment"></i>
-                </div>
-                <div style="width:20%; text-align:center;line-height:50px;float:left;box-sizing: border-box;" onclick="location.href='/setting'" class="setting">
-                    <i class="fa fa-cogs"></i>
-                </div>
-            </div> -->
             <div class="shadow" style="display:none;background:gray;width:100%; left:0;height:100%;top:0;position:absolute;z-index:10;overflow:hidden">
                 <div class="popup" style="display:none;background:black;width:90%; left:0;height:100%;top:0;position:absolute;overflow:hidden">
                   <?
@@ -245,6 +211,7 @@
             "hideMethod": "fadeOut"
         }
         $('.bb').css('min-height',$(window).height()-$('.footer').height()+'px');
+
         @if(isset($_COOKIE['user_idx']) && $_COOKIE['user_idx'] != '')
         $.ajax({
             method	: 'POST',
@@ -258,10 +225,8 @@
                         $('.fa-bell').css('color','red');
                     }, 1000);
                 }, 3000);
-            }else{
-
             }
-        },10000)
+        })
         @endif
     </script>
     @yield('script')

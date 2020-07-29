@@ -107,10 +107,6 @@ $day=[
                             </label>
                         </div>
                     </div>
-                    <!-- <div class="col-12">
-                        <span>태그</span>
-                        <input type="text" name="hash" placeholder=", 를 사용하여 최대 3개를 저장할수있습니다" class="form-control input-sm">
-                    </div> -->
                     <div class="col-12 float-left">
                         <span>장소</span>
                         <input type="text" name="place" placeholder=", 를 사용하여 최대 3개를 저장할수있습니다" class="form-control input-sm" required>
@@ -153,8 +149,5 @@ $day=[
         Command: toastr["success"]('등록완료')
         return true;
     }
-    $(document).ready(function(){
-
-    })
 </script>
 @endsection

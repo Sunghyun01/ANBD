@@ -41,20 +41,28 @@
     <script>
         $('.navpusher').css('height','0');
         $('.login').click(function(){
-            $.ajax({
-                method	: 'POST',
-                url		: location.href,
-                data	:  {
-                    id : $('[name="id"]').val(),
-                    password : $('[name="password"]').val(),
-                },
-            }).done(function(data){
-                if(data['status']){
-                    location.href="/home";
-                }else{
-                    Command: toastr["error"](data['msg'])
-                }
-            })
+            if(!$('[name="id"]').val() && $.trim($('[name="id"]').val()) == ''){
+                Command: toastr["error"]('ID를 확인해주세요');
+                return false;
+            }else if (!$('[name="password"]').val() && $.trim($('[name="password"]').val()) == '') {
+                Command: toastr["error"]('비밀번호를 확인해주세요');
+                return false;
+            }else{
+                $.ajax({
+                    method	: 'POST',
+                    url		: location.href,
+                    data	:  {
+                        id : $('[name="id"]').val(),
+                        password : $('[name="password"]').val(),
+                    },
+                }).done(function(data){
+                    if(data['status']){
+                        location.href="/home";
+                    }else{
+                        Command: toastr["error"](data['msg'])
+                    }
+                })
+            }
         })
     </script>
 @endsection
