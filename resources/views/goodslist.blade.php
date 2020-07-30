@@ -70,12 +70,6 @@ $gubun = [
                                     <i class="fa fa-map-marker"></i> {{ $exp[$i] }}
                                 @endfor
                         @endif
-                        @if(isset($val['hash']) && $val['hash'] != '')
-                        <? $exp = explode(',',$val['hash']);?>
-                            @for($i=0; $i < count($exp); $i++)
-                                <button class="btn btn">{{ $exp[$i] }}</button>
-                            @endfor
-                        @endif
                         </p>
                     </div>
                 </div>

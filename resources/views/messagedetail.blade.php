@@ -65,7 +65,7 @@
                     `)
                     $('.msgText').val('');
                 }else{
-                    alert('error');
+                    Command: toastr["error"]('ServerError');
                 }
             })
         })

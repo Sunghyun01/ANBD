@@ -10,7 +10,7 @@ class Goods extends Model
     protected $primaryKey = 'idx';
     public $timestamps = false;
 
-    protected $fillable = ['idx','pidx','goods_name','comment','img','writer','hash','place',
+    protected $fillable = ['idx','pidx','goods_name','comment','img','writer','place',
     'department','grade','gubun','post_type','day','start_time','end_time','reg_time'];
     public static $department = [
         '국어국문학과','영어영문학과','중어중문학과','프랑스언어문화학과','일본학과','법학과','행정학과','경제학과'

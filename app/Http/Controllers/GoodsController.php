@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\{Goods,User,Comment};
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
 
 class GoodsController extends Controller
 {
     function goodsList(Request $request)
     {
-        $goodsData = Goods::select('idx','goods_name','comment','img','writer','hash','place',
+        $goodsData = Goods::select('idx','goods_name','comment','img','writer','place',
         'department','grade','gubun','day','post_type','start_time','end_time','reg_time');
         if($request->has('q')){
             $goodsData->where('goods_name', 'like', '%' . $request->q . '%');
@@ -71,28 +72,19 @@ class GoodsController extends Controller
     }
     function goodsInsert(Request $request)
     {
-        $writer = User::findOrFail($_COOKIE['user_idx'])->id;
+        $writer = User::findOrFail(Crypt::decryptString($_COOKIE['user_idx']))->id;
 
-        $hash = preg_replace("/\s+/", "", $request->hash);
         $place = preg_replace("/\s+/", "", $request->place);
 
-        $hash = explode(',',$hash);
         $place = explode(',',$place);
 
-        $hashMax = count($hash);
         $placeMax= count($place);
 
-        if($hashMax > 3){
-            $hash = $hash[0].','.$hash[1].','.$hash[2];
-        }else{
-            $hash = implode(',',$hash);
-        }
         if($placeMax > 3){
             $place = $place[0].','.$place[1].','.$place[2];
         }else{
             $place = implode(',',$place);
         }
-        $name = '';
 
         $day = implode('|',$request->day);
         if(count($request->post_type) == 2){
@@ -103,6 +95,7 @@ class GoodsController extends Controller
             $post_type = 3;
         }
 
+        $name = '';
         if($request->hasFile('goods_photo')){
             $image = $request->file('goods_photo');
             $name = time().'.'.$image->getClientOriginalExtension();

@@ -65,7 +65,7 @@
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
                                 @if(isset($_COOKIE['user_idx']) && $_COOKIE['user_idx'] != '')
-                                    <a class="nav-link" href="/setting">{{ App\User::where('idx',$_COOKIE['user_idx'])->first()->name }}</a>
+                                    <a class="nav-link" href="/setting">{{ App\User::where('idx',Illuminate\Support\Facades\Crypt::decryptString($_COOKIE['user_idx']))->first()->name }}</a>
                                 @else
                                     <a class="nav-link" href="/register">Register</a>
                                 @endif
@@ -84,54 +84,6 @@
 
             <div class="navpusher"></div>
             @yield('content')
-            <div class="shadow" style="display:none;background:gray;width:100%; left:0;height:100%;top:0;position:absolute;z-index:10;overflow:hidden">
-                <div class="popup" style="display:none;background:black;width:90%; left:0;height:100%;top:0;position:absolute;overflow:hidden">
-                  <?
-                  $department = [
-                      '국어국문학과','영어영문학과','중어중문학과','프랑스언어문화학과','일본학과','법학과','행정학과','경제학과'
-                      ,'경영학과','무역학과','미디어영상학과','관광학과','사회복지학과','농학과','생활과학부','컴퓨터과학과','정보통계학과'
-                      ,'보건환경학과','간호학과','교육학과','청소년교육과','유아교육과','문화교양학과'
-                  ];
-                  $gubun = [
-                      '전공','교양','일반'
-                  ];
-                  ?>
-                  <div class="container" style="padding-top:50px">
-                      <div class="row">
-                          <form class="form-inline">
-                              <input class="form-control inp" type="text" placeholder="Search" style="width:75%;float:left">
-                              <button class="btn btn-info submit" type="button" style="width:25%;">Search</button>
-                          </form>
-                      </div>
-                      <div class="row">
-                          <div class="col-xs-12 text-right tab">
-                              <span tab="department" style="color:blue">학과별</span> / <span tab="gubun">구분별</span>
-                          </div>
-                          <div class="col-xs-12 department-menu">
-                              <ul>
-                                  <?for($i=0; $i<count($department); $i++){?>
-                                  <li style="height:30px" >{{ $department[$i] }}</li>
-                                  <li class="d-none" menu="{{$i}}">
-                                      <ul>
-                                          <?for($j=1; $j<5; $j++){?>
-                                          <li grade="{{$j}}">ㄴ {{ $j }}학년</li>
-                                          <?}?>
-                                      </ul>
-                                  </li>
-                                  <?}?>
-                              </ul>
-                          </div>
-                          <div class="col-xs-12 gubun-menu d-none">
-                              <ul>
-                                  <?for($i=0; $i<count($gubun); $i++){?>
-                                      <li style="height:30px" gubun='{{ $i }}'>{{ $gubun[$i] }}</li>
-                                  <?}?>
-                              </ul>
-                          </div>
-                      </div>
-                  </div>
-                </div>
-            </div>
         </div>
         <div class="row footer">
             <div class="col-12 text-center m-0">
@@ -172,19 +124,6 @@
             $(`.menu>li`).removeClass('active')
             $(`.menu>li>a[href="${sessionStorage.getItem('menu')}"]`).parents('li').addClass('active');
         }
-        function logout(){
-            $.ajax({
-                method	: 'POST',
-                url		: '/logout',
-            }).done(function(data){
-                if(data['status']){
-                    alert('로그아웃되었습니다');
-                    location.reload();
-                }else{
-                    alert('Error');
-                }
-            })
-        }
         $(".inp").keyup(function(e){
             if(e.keyCode == 13)
                 $('.submit').trigger('click')
@@ -223,8 +162,8 @@
                     $('.fa-bell').css('color','white');
                     setTimeout(function() {
                         $('.fa-bell').css('color','red');
-                    }, 1000);
-                }, 3000);
+                    }, 1500);
+                }, 1500);
             }
         })
         @endif
