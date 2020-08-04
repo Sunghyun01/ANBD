@@ -123,7 +123,7 @@ class GoodsController extends Controller
     }
     function comment(Request $request, $idx)
     {
-        $writer = User::findOrFail($_COOKIE['user_idx'])->name;
+        $writer = User::findOrFail(Crypt::decryptString($_COOKIE['user_idx']))->name;
         Comment::create([
             'pidx' => $idx,
             'writer' => $writer,

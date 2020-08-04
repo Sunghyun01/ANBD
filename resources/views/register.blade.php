@@ -35,7 +35,7 @@
                         <input class="form-control" placeholder="이름" name="name" type="text"  required>
                     </div>
                     <div class="col-12">
-                        <input type="button" value="회원가입" class="btn btn-lg btn-block login" style="background: #B5B2FF;border: 0;"/>
+                        <input type="submit" value="회원가입" class="btn btn-lg btn-block login" style="background: #B5B2FF;border: 0;"/>
                     </div>
                 </form>
             </div>
@@ -53,7 +53,7 @@
             if($("[name='password']").val() != $("[name='password']").val()){
                 Command: toastr["error"]('비밀번호 확인이 올바르지 않습니다')
                 return false;
-            }else if (idChk) {
+            }else if (!idChk) {
                 Command: toastr["error"]('아이디체크를 진행해주세요')
                 return false;
             }else{

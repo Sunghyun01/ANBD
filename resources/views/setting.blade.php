@@ -31,7 +31,7 @@
                     <h4 class="text-center">로그인 후 이용할수있습니다</h4>
                 </div>
                 <div class="col-6" onclick="location.href='/login'">
-                    <p class="text-center border border-successr">로그인</p>
+                    <p class="text-center border border-success">로그인</p>
                 </div>
                 <div class="col-6" onclick="location.href='/register'">
                     <p class="text-center border border-success">회원가입</p>

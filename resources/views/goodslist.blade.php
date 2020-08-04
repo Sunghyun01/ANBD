@@ -21,7 +21,7 @@ $gubun = [
     <div class="container">
         <div class="row">
             <div class="col-12">
-                검색결과 {{ count($data)??'' }}건
+                검색결과 {{ count($data)??'0' }}건
             </div>
         </div>
         <div class="row">
@@ -35,9 +35,9 @@ $gubun = [
 
                     <div class="col-2 p-0 imgBox float-left">
                         @if($noImg)
-                        <img src="{{$val['img']}}" style="width:100%;height:100%;" class="rounded">
+                        <img src="{{ $val['img'] }}" style="width:100%;height:100%;" class="rounded">
                         @else
-                        <img src="{{ asset('/images/default.png' )}}" style="width:100%;height:100%;" class="rounded">
+                        <img src="https://jsh2.innoi.kr/images/default.png" style="width:100%;height:100%;" class="rounded">
                         @endif
                     </div>
 

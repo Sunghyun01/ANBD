@@ -31,7 +31,7 @@ class Login extends Controller
             'name' => $request->name,
             'reg_time' => now()->timestamp
         ]);
-        return response()->json(['status'=>true,'msg'=>'가입되었습니다']);
+        return redirect()->route('home');
     }
     public function idChk(Request $request)
     {
