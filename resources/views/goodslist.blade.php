@@ -37,7 +37,7 @@ $gubun = [
                         @if($noImg)
                         <img src="{{ $val['img'] }}" style="width:100%;height:100%;" class="rounded">
                         @else
-                        <img src="https://jsh2.innoi.kr/images/default.png" style="width:100%;height:100%;" class="rounded">
+                        <img src="http://jsh2.innoi.kr/images/default.png" style="width:100%;height:100%;" class="rounded">
                         @endif
                     </div>
 
